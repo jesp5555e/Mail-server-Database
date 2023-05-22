@@ -58,6 +58,7 @@ echo "<VirtualHost *:443>" >> /etc/httpd/conf/httpd.conf
 echo "SSLEngine on" >> /etc/httpd/conf/httpd.conf
 echo "SSLCertificateFile /etc/httpd/ssl/server.crt" >> /etc/httpd/conf/httpd.conf
 echo "SSLCertificateKeyFile /etc/httpd/ssl/server.key" >> /etc/httpd/conf/httpd.conf
+echo "</VirtualHost>" >> /etc/httpd/conf/httpd.conf
 
 # Start Apache-tjenesten
 systemctl enable httpd
