@@ -53,7 +53,6 @@ mkdir /etc/httpd/ssl
 openssl req -new -x509 -nodes -days 365 -out /etc/httpd/ssl/server.crt -keyout /etc/httpd/ssl/server.key
 
 # Konfigurer Apache til at bruge SSL
-echo "Listen 443" >> /etc/httpd/conf/httpd.conf
 echo "<VirtualHost *:443>" >> /etc/httpd/conf/httpd.conf
 echo "SSLEngine on" >> /etc/httpd/conf/httpd.conf
 echo "SSLCertificateFile /etc/httpd/ssl/server.crt" >> /etc/httpd/conf/httpd.conf
