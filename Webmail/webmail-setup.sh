@@ -60,6 +60,7 @@ echo "SSLCertificateFile /etc/httpd/ssl/server.crt" >> /etc/httpd/conf/httpd.con
 echo "SSLCertificateKeyFile /etc/httpd/ssl/server.key" >> /etc/httpd/conf/httpd.conf
 
 # Start Apache-tjenesten
+systemctl enable httpd
 systemctl start httpd
 
 echo "Mail server and webmail setup completed."
