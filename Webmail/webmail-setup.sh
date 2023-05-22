@@ -31,15 +31,15 @@ systemctl enable dovecot
 systemctl start dovecot
 
 # Installer nødvendige pakker for webmail
-yum install httpd php php-mysqlnd -y
+yum install httpd php php-mysqlnd mod_ssl -y
 
 # Installer Roundcube
 cd /var/www/html
-wget https://github.com/roundcube/roundcubemail/releases/download/1.5.15/roundcubemail-1.5.15-complete.tar.gz
-tar -xzf roundcubemail-1.5.15-complete.tar.gz
-mv roundcubemail-1.5.15 webmail
+wget https://github.com/roundcube/roundcubemail/releases/download/1.6.1/roundcubemail-1.6.1-complete.tar.gz
+tar -xzf roundcubemail-1.6.1-complete.tar.gz
+mv roundcubemail-1.6.1 webmail
 chown -R apache:apache webmail
-rm -f roundcubemail-1.5.15-complete.tar.gz
+rm -f roundcubemail-1.6.1-complete.tar.gz
 
 # Konfigurer Roundcube
 cp -pRv webmail/config/config.inc.php.sample webmail/config/config.inc.php
