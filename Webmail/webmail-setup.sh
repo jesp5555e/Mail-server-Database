@@ -43,6 +43,7 @@ rm -f roundcubemail-1.6.1-complete.tar.gz
 
 # Konfigurer Roundcube
 cp -pRv webmail/config/config.inc.php.sample webmail/config/config.inc.php
+sed -i "s/\$config\['db_dsnw'\] = 'mysql://roundcube:pass@localhost/roundcubemail';/\$config\['db_dsnw'\] = 'mysql://roundcube:Kode1234!@192.168.69.3/roundcubemail';/" webmail/config/config.inc.php
 sed -i "s/\$config\['default_host'\] = '';/\$config\['default_host'\] = 'localhost';/" webmail/config/config.inc.php
 sed -i "s/\$config\['smtp_server'\] = '';/\$config\['smtp_server'\] = 'localhost';/" webmail/config/config.inc.php
 sed -i "s/\$config\['smtp_user'\] = '';/\$config\['smtp_user'\] = '%u';/" webmail/config/config.inc.php
