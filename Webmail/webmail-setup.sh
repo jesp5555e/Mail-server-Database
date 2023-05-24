@@ -31,12 +31,11 @@ systemctl enable dovecot
 systemctl start dovecot
 
 # Installer nødvendige pakker for webmail
-yum install httpd php php-mysqlnd mod_sslv mysql -y
+yum install httpd php php-mysqlnd mod_ssl mysql -y
 
 # Installer og konfigurer Remi-repository
-yum install epel-release -y
-yum install http://rpms.remirepo.net/enterprise/remi-release-7.rpm -y
-yum-config-manager --enable remi-php73
+yum install https://rpms.remirepo.net/enterprise/remi-release-9.rpm -y
+yum config-manager --set-enable remi
 
 # Opdater systemet
 yum update -y
