@@ -31,23 +31,27 @@ systemctl enable dovecot
 systemctl start dovecot
 
 # Installer nødvendige pakker for webmail
-yum install httpd php php-mysqlnd mod_ssl -y
+yum install httpd php php-mysqlnd mod_sslv mysql -y
 
-# Installer Roundcube
-cd /var/www/html
-wget https://github.com/roundcube/roundcubemail/releases/download/1.6.1/roundcubemail-1.6.1-complete.tar.gz
-tar -xzf roundcubemail-1.6.1-complete.tar.gz
-mv roundcubemail-1.6.1 webmail
-chown -R apache:apache webmail
-rm -f roundcubemail-1.6.1-complete.tar.gz
+# Installer og konfigurer Remi-repository
+yum install epel-release -y
+yum install http://rpms.remirepo.net/enterprise/remi-release-7.rpm -y
+yum-config-manager --enable remi-php73
+
+# Opdater systemet
+yum update -y
+yum upgrade -y
+
+# Installer Roundcube fra Remi-repository
+yum install roundcubemail -y
 
 # Konfigurer Roundcube
-cp -pRv webmail/config/config.inc.php.sample webmail/config/config.inc.php
-sed -i "s/\$config\['db_dsnw'\] = 'mysql://roundcube:pass@localhost/roundcubemail';/\$config\['db_dsnw'\] = 'mysql://roundcube:Kode1234!@192.168.69.3/roundcubemail';/" webmail/config/config.inc.php
-sed -i "s/\$config\['default_host'\] = '';/\$config\['default_host'\] = 'localhost';/" webmail/config/config.inc.php
-sed -i "s/\$config\['smtp_server'\] = '';/\$config\['smtp_server'\] = 'localhost';/" webmail/config/config.inc.php
-sed -i "s/\$config\['smtp_user'\] = '';/\$config\['smtp_user'\] = '%u';/" webmail/config/config.inc.php
-sed -i "s/\$config\['smtp_pass'\] = '';/\$config\['smtp_pass'\] = '%p';/" webmail/config/config.inc.php
+cp -pRv /etc/roundcubemail/config.inc.php.sample /etc/roundcubemail/config.inc.php
+sed -i "s/\$config\['db_dsnw'\] = 'mysql://roundcube:pass@localhost/roundcubemail';/\$config\['db_dsnw'\] = 'mysql://roundcube:Kode1234!@192.168.69.3/roundcubemail';/" /etc/roundcubemail/config.inc.php
+sed -i "s/\$config\['default_host'\] = 'localhost';/\$config\['default_host'\] = 'localhost';/" /etc/roundcubemail/config.inc.php
+sed -i "s/\$config\['smtp_server'\] = 'localhost';/\$config\['smtp_server'\] = 'localhost';/" /etc/roundcubemail/config.inc.php
+sed -i "s/\$config\['smtp_user'\] = '%u';/\$config\['smtp_user'\] = '%u';/" /etc/roundcubemail/config.inc.php
+sed -i "s/\$config\['smtp_pass'\] = '%p';/\$config\['smtp_pass'\] = '%p';/" /etc/roundcubemail/config.inc.php
 
 # Generer selvsigneret SSL-certifikat
 mkdir /etc/httpd/ssl
