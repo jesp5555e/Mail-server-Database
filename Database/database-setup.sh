@@ -1,5 +1,17 @@
 #!/bin/bash
 
+# Installer nødvendige pakker
+yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm -y
+yum install firewalld -y
+
+# Start og aktiver firewalld-tjenesten
+systemctl start firewalld
+systemctl enable firewalld
+
+# Konfigurer firewall-regler for database-serveren
+firewall-cmd --permanent --add-port=3306/tcp
+firewall-cmd --reload
+
 # Installer MariaDB-server
 yum install mariadb-server -y
 
