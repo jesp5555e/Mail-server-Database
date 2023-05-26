@@ -5,17 +5,17 @@ yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.r
 yum install firewalld -y
 
 # Start og aktiver firewalld-tjenesten
-systemctl start firewalld
+systemctl start firewalld 
 systemctl enable firewalld
 
 # Konfigurer firewall-regler for webmail-serveren
-firewall-cmd --permanent --add-service=https
-firewall-cmd --permanent --add-service=http
-firewall-cmd --permanent --add-service=smtp
+firewall-cmd --permanent --add-service=https ;
+firewall-cmd --permanent --add-service=http ;
+firewall-cmd --permanent --add-service=smtp ;
 firewall-cmd --reload
 
 # Installer Postfix og Dovecot
-yum install postfix dovecot -y
+yum install postfix dovecot -y ;
 
 # Konfigurer Postfix
 echo "myhostname = mail-server.kbytech.dom" >> /etc/postfix/main.cf
